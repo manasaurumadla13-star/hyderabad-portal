@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HYD Startup Portal</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Syne (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION BAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <!-- Logo -->
+      <div class="nav-logo">
+        <span class="logo-mark">⬡</span>
+        <span class="logo-text">HYD<span class="logo-accent">SP</span></span>
+      </div>
+
+      <!-- Desktop nav links -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+        <li><a href="#startups" class="nav-link" data-section="startups">Startups</a></li>
+        <li><a href="#investors" class="nav-link" data-section="investors">Investors</a></li>
+        <li><a href="#events" class="nav-link" data-section="events">Events</a></li>
+        <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+      </ul>
+
+      <!-- Auth buttons -->
+      <div class="nav-auth">
+        <button class="btn-ghost" id="loginBtn">Login</button>
+        <button class="btn-primary" id="signupBtn">Sign Up</button>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#home" class="mob-link">Home</a>
+      <a href="#startups" class="mob-link">Startups</a>
+      <a href="#investors" class="mob-link">Investors</a>
+      <a href="#events" class="mob-link">Events</a>
+      <a href="#contact" class="mob-link">Contact</a>
+      <div class="mob-auth">
+        <button class="btn-ghost" id="loginBtnMob">Login</button>
+        <button class="btn-primary" id="signupBtnMob">Sign Up</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO / HOME SECTION ===== -->
+  <section class="hero" id="home">
+    <!-- Decorative background blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">🌆 Hyderabad Startup Ecosystem</div>
+      <h1 class="hero-title">
+        Where Bold<br/>
+        <span class="title-outline">Ideas</span> Meet<br/>
+        Real Capital
+      </h1>
+      <p class="hero-sub">
+        Discover 500+ startups, connect with visionary investors,
+        and be part of India's fastest-growing innovation hub.
+      </p>
+      <div class="hero-cta">
+        <button class="btn-primary btn-large" onclick="scrollToSection('startups')">Explore Startups</button>
+        <button class="btn-outline btn-large" onclick="scrollToSection('investors')">Meet Investors</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num" data-target="500">0</span><span class="stat-plus">+</span><span class="stat-label">Startups</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" data-target="120">0</span><span class="stat-plus">+</span><span class="stat-label">Investors</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" data-target="48">0</span><span class="stat-plus">+</span><span class="stat-label">Events / Year</span></div>
+      </div>
+    </div>
+
+    <!-- Floating startup card decorations -->
+    <div class="hero-float hero-float-1">
+      <span class="float-icon">🚀</span>
+      <span class="float-text">TechScale just raised ₹4Cr!</span>
+    </div>
+    <div class="hero-float hero-float-2">
+      <span class="float-icon">📈</span>
+      <span class="float-text">New event: Founder Friday</span>
+    </div>
+  </section>
+
+  <!-- ===== STARTUPS SECTION ===== -->
+  <section class="section" id="startups">
+    <div class="section-container">
+      <div class="section-header">
+        <p class="section-eyebrow">🏢 Directory</p>
+        <h2 class="section-title">Featured Startups</h2>
+        <p class="section-desc">Discover the companies reshaping industries from the City of Pearls.</p>
+      </div>
+
+      <!-- Search + Filter bar -->
+      <div class="filter-bar">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search startups by name…" />
+          <button class="search-clear" id="searchClear" style="display:none">✕</button>
+        </div>
+        <div class="category-filters" id="categoryFilters">
+          <button class="filter-btn active" data-cat="All">All</button>
+          <button class="filter-btn" data-cat="Tech">Tech</button>
+          <button class="filter-btn" data-cat="FinTech">FinTech</button>
+          <button class="filter-btn" data-cat="Health">Health</button>
+          <button class="filter-btn" data-cat="EdTech">EdTech</button>
+          <button class="filter-btn" data-cat="AgriTech">AgriTech</button>
+          <button class="filter-btn" data-cat="SaaS">SaaS</button>
+        </div>
+      </div>
+
+      <!-- Startup cards grid -->
+      <div class="cards-grid" id="startupsGrid">
+        <!-- Cards injected by JS -->
+        <div class="loading-spinner" id="startupsLoader">
+          <div class="spinner"></div><p>Loading startups…</p>
+        </div>
+      </div>
+
+      <!-- Add Startup CTA -->
+      <div class="section-cta">
+        <button class="btn-primary" id="addStartupBtn">+ List Your Startup</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INVESTORS SECTION ===== -->
+  <section class="section section-alt" id="investors">
+    <div class="section-container">
+      <div class="section-header">
+        <p class="section-eyebrow">💼 Capital</p>
+        <h2 class="section-title">Top Investors</h2>
+        <p class="section-desc">Connect with the funds and angels backing Hyderabad's next unicorns.</p>
+      </div>
+      <div class="investor-grid" id="investorsGrid">
+        <div class="loading-spinner" id="investorsLoader">
+          <div class="spinner"></div><p>Loading investors…</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EVENTS SECTION ===== -->
+  <section class="section" id="events">
+    <div class="section-container">
+      <div class="section-header">
+        <p class="section-eyebrow">📅 Calendar</p>
+        <h2 class="section-title">Upcoming Events</h2>
+        <p class="section-desc">Meetups, demo days, and hackathons happening in Hyderabad.</p>
+      </div>
+      <div class="events-list" id="eventsList">
+        <!-- Events injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section class="section section-alt" id="contact">
+    <div class="section-container">
+      <div class="contact-wrap">
+        <div class="contact-info">
+          <p class="section-eyebrow">✉️ Get In Touch</p>
+          <h2 class="section-title">Let's Build<br/>Together</h2>
+          <p class="section-desc">Have a startup to list, an event to promote, or just want to say hello?</p>
+          <div class="contact-details">
+            <div class="contact-item"><span>📍</span><span>HITEC City, Hyderabad, Telangana</span></div>
+            <div class="contact-item"><span>📧</span><span>hello@hydstartups.in</span></div>
+            <div class="contact-item"><span>📞</span><span>+91 40 1234 5678</span></div>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="cName">Full Name</label>
+            <input type="text" id="cName" placeholder="Rahul Sharma" required/>
+            <span class="form-error" id="nameError"></span>
+          </div>
+          <div class="form-group">
+            <label for="cEmail">Email Address</label>
+            <input type="email" id="cEmail" placeholder="rahul@startup.com" required/>
+            <span class="form-error" id="emailError"></span>
+          </div>
+          <div class="form-group">
+            <label for="cMsg">Your Message</label>
+            <textarea id="cMsg" rows="4" placeholder="Tell us about your startup or query…" required></textarea>
+            <span class="form-error" id="msgError"></span>
+          </div>
+          <button type="submit" class="btn-primary btn-full">Send Message →</button>
+          <p class="form-success" id="formSuccess" style="display:none">✅ Message sent! We'll respond within 24hrs.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-mark">⬡</span>
+        <span class="logo-text">HYD<span class="logo-accent">SP</span></span>
+      </div>
+      <p class="footer-tag">Proudly built for the City of Pearls 🦢</p>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#startups">Startups</a>
+        <a href="#investors">Investors</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p class="footer-copy">© 2025 HYD Startup Portal. MIT License.</p>
+    </div>
+  </footer>
+
+  <!-- ===== MODAL: Login ===== -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal">
+      <button class="modal-close" data-modal="loginModal">✕</button>
+      <h2 class="modal-title">Welcome Back 👋</h2>
+      <p class="modal-sub">Sign in to your portal account</p>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="••••••••"/>
+      </div>
+      <button class="btn-primary btn-full" id="loginSubmit">Login</button>
+      <p class="modal-switch">Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
+      <p class="modal-msg" id="loginMsg"></p>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: Sign Up ===== -->
+  <div class="modal-overlay" id="signupModal">
+    <div class="modal">
+      <button class="modal-close" data-modal="signupModal">✕</button>
+      <h2 class="modal-title">Join the Portal 🚀</h2>
+      <p class="modal-sub">Create your free account</p>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="suName" placeholder="Your Name"/>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="suEmail" placeholder="you@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="suPass" placeholder="Min 6 characters"/>
+      </div>
+      <button class="btn-primary btn-full" id="signupSubmit">Create Account</button>
+      <p class="modal-switch">Already registered? <a href="#" id="switchToLogin">Login</a></p>
+      <p class="modal-msg" id="signupMsg"></p>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: Add Startup ===== -->
+  <div class="modal-overlay" id="addStartupModal">
+    <div class="modal modal-wide">
+      <button class="modal-close" data-modal="addStartupModal">✕</button>
+      <h2 class="modal-title">List Your Startup 🏢</h2>
+      <p class="modal-sub">Fill the form — we'll review within 48 hrs</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Startup Name *</label>
+          <input type="text" id="asName" placeholder="e.g. TechScale"/>
+        </div>
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="asCat">
+            <option value="">Select category</option>
+            <option>Tech</option><option>FinTech</option>
+            <option>Health</option><option>EdTech</option>
+            <option>AgriTech</option><option>SaaS</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Short Description *</label>
+        <textarea id="asDesc" rows="3" placeholder="What does your startup do?"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Founder Name</label>
+          <input type="text" id="asFounder" placeholder="Your Name"/>
+        </div>
+        <div class="form-group">
+          <label>Website URL</label>
+          <input type="url" id="asUrl" placeholder="https://..."/>
+        </div>
+      </div>
+      <button class="btn-primary btn-full" id="addStartupSubmit">Submit Startup →</button>
+      <p class="modal-msg" id="addStartupMsg"></p>
+    </div>
+  </div>
+
+  <!-- ===== TOAST NOTIFICATION ===== -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
